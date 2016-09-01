@@ -122,10 +122,8 @@ def coint_johansen(x, p, k, coint_trend=None):
     dx    = tdiff(x,1, axis=0)
     #dx    = trimr(dx,1,0)
     z     = mlag(dx,k)#[k-1:]
-    print(z.shape)
     z = trimr(z,k,0)
     z     = detrend(z,f)
-    print(dx.shape)
     dx = trimr(dx,k,0)
 
     dx    = detrend(dx,f)
@@ -135,7 +133,6 @@ def coint_johansen(x, p, k, coint_trend=None):
     lx = lag(x,k)
     lx = trimr(lx, 1, 0)
     dx    = detrend(lx,f)
-    print('rkt', dx.shape, z.shape)
     #rkt   = dx - z*(z\dx)
     rkt   = resid(dx, z)  #level on lagged diffs
     skk   = np.dot(rkt.T, rkt) / rows(rkt)
